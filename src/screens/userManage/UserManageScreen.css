@@ -1,0 +1,22 @@
+.user-manage-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+.user-manage-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f7f7f7;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+}
+
+.user-manage-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #6F4E37;
+  margin-bottom: 20px;
+  text-align: center;
+}
+  
