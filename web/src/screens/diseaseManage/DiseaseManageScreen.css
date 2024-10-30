@@ -1,0 +1,22 @@
+.disease-manage-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+.disease-manage-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #FFF;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.disease-manage-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #6F4E37;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
