@@ -1,0 +1,83 @@
+import React from 'react';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import HeaderText from '../components/HeaderText';  
+import Banner from '../assets/images/main/banner.svg';  
+import MainIcon from '../assets/images/main/mainIcon.svg';
+import MainIcon2 from '../assets/images/main/mainIcon2.svg';
+
+export default function MainScreen({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={require('../assets/images/petppo_2.jpg')}
+        style={styles.iconImage}
+      />
+      <View style={styles.contentContainer}>
+        <HeaderText mainText={"쿠키의 피부 건강,\n지금 바로 확인해 보세요."} />
+
+        {/* 배너 이미지와 고민 나누러 가기 버튼 */}
+        <View style={styles.banner}>
+          <Banner width={370} height={178} />  
+          <TouchableOpacity style={styles.communityButton} onPress={() => navigation.navigate('커뮤니티')} >
+            <Text style={styles.communityLink}>고민 나누러 가기 ↗</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* 기능 버튼들 */}
+        <View style={styles.buttonsRow}>
+          <TouchableOpacity onPress={() => navigation.navigate('이미지 업로드')} >
+            <MainIcon width={164} height={171} />  
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <MainIcon2 width={164} height={171} onPress={() => navigation.navigate('진단 기록')} />  
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  iconImage: {
+    width: '100%',
+    height: 137,
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 35,
+    paddingBottom: 35,
+    backgroundColor: '#fff',
+  },
+  banner: {
+    paddingTop: 35,
+    paddingBottom: 30,
+    alignItems: 'center',
+    position: 'relative',
+    paddingLeft: 15,
+  },
+  communityButton: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 50,
+    position: 'absolute',  
+    right: 20,  
+    bottom: 50, 
+    width: 161,
+  },
+  communityLink: {
+    fontSize: 16,
+    color: '#FC7E2F',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+});
