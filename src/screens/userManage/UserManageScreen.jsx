@@ -115,7 +115,7 @@
 import React, { useState } from 'react';
 import './UserManageScreen.css';
 import Sidebar from '../../components/Sidebar';
-import TableComponent from '../../components/TableComponent';
+import TableComponent from '../../components/UserTableComponent';
 import PaginationComponent from '../../components/PaginationComponent';
 import Modal from '../../components/Modal';
 import ConfirmModal from '../../components/ConfirmModal';

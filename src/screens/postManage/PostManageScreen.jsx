@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './PostManageScreen.css';
 import Sidebar from '../../components/Sidebar';
-import TableComponent from '../../components/TableComponent';
+import TableComponent from '../../components/PostTableComponent';
 import PaginationComponent from '../../components/PaginationComponent';
 import Modal from '../../components/Modal';
 import ConfirmModal from '../../components/ConfirmModal';
 
 function PostManageScreen() {
   const [posts, setPosts] = useState([
-    { postId: '001', name: '정희연', postDate: '2024.05.04', title: '보통 여름철 샴푸 어떤 거 쓰시나요?', commentCount: '5' },
+    { postId: '001', name: '정희연', postDate: '2024.05.04', title: '보통 여름철 샴푸 어떤 거 쓰시나요? ', commentCount: '5' },
     { postId: '002', name: '정희연', postDate: '2024.05.04', title: '보통 여름철 샴푸 어떤 거 쓰시나요?', commentCount: '5' },
     { postId: '002', name: '정희연', postDate: '2024.05.04', title: '보통 여름철 샴푸 어떤 거 쓰시나요?', commentCount: '5' },
     { postId: '002', name: '정희연', postDate: '2024.05.04', title: '보통 여름철 샴푸 어떤 거 쓰시나요?', commentCount: '5' },

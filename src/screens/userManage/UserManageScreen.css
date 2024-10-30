@@ -1,12 +1,12 @@
 .user-manage-container {
-    display: flex;
-    height: 100vh;
-  }
+  display: flex;
+  height: 100vh;
+}
   
 .user-manage-content {
   flex: 1;
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: #FFF;
   display: flex; 
   flex-direction: column; 
   align-items: center;
