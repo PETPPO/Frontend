@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FiTrash2 } from 'react-icons/fi';
 
-function DiseaseTableComponent({ columns, data }) {
+function UserTableComponent({ columns, data, onDelete }) {
   return (
     <TableWrapper>
       <Table>
@@ -15,18 +16,14 @@ function DiseaseTableComponent({ columns, data }) {
         <tbody>
           {data.map((row, index) => (
             <TableRow key={index}>
-              {Object.entries(row).map(([key, value], idx) => (
-                <TableCell key={idx}>
-                  {(key === 'diseaseDescription' || key === 'healthGuidance') ? (
-                    <TooltipContainer>
-                      <span>{value.length > 20 ? `${value.slice(0, 20)}...` : value}</span>
-                      <Tooltip>{value}</Tooltip>
-                    </TooltipContainer>
-                  ) : (
-                    value
-                  )}
-                </TableCell>
+              {Object.values(row).map((value, idx) => (
+                <TableCell key={idx}>{value}</TableCell>
               ))}
+              <TableCell>
+                <DeleteButton onClick={() => onDelete(row.id)}>
+                  <FiTrash2 />
+                </DeleteButton>
+              </TableCell>
             </TableRow>
           ))}
         </tbody>
@@ -35,7 +32,7 @@ function DiseaseTableComponent({ columns, data }) {
   );
 }
 
-export default DiseaseTableComponent;
+export default UserTableComponent;
 
 const TableWrapper = styled.div`
   width: 80%;
@@ -71,31 +68,14 @@ const TableCell = styled.td`
   color: #898A8D;
 `;
 
-const TooltipContainer = styled.div`
-  position: relative;
-  display: inline-block;
+const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: #FF9A62;
   cursor: pointer;
-`;
+  font-size: 1.4rem;
 
-const Tooltip = styled.span`
-  visibility: hidden;
-  width: 200px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 14px;
-
-  ${TooltipContainer}:hover & {
-    visibility: visible;
-    opacity: 1;
+  &:hover {
+    color: #c0392b;
   }
 `;
