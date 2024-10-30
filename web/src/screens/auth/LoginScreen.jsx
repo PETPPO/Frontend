@@ -35,9 +35,9 @@ function LoginScreen() {
   const handleLogin = async (e) => {
     e.preventDefault(); // 기본 폼 제출 방지
     try {
-      const response = await axios.post('https://2352-210-119-237-59.ngrok-free.app/api/user/login', {
-        email: email,
-        password: password,
+      const response = await axios.post('http://ceprj.gachon.ac.kr:60017/admin/login_process', {
+        adminEmail: email,
+        adminPw: password, 
       });
 
       if (response.data.success) {
