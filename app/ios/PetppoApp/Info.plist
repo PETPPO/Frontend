@@ -35,12 +35,25 @@
     <string>1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
-      <false/>
+       <true/>
       <key>NSAllowsLocalNetworking</key>
       <true/>
+       <key>NSExceptionDomains</key>
+        <dict>
+          <key>gachon.ac.kr</key>
+          <dict>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+            <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+            <key>NSTemporaryExceptionMinimumTLSVersion</key>
+            <string>TLSv1.1</string>
+          </dict>
+        </dict>
     </dict>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
@@ -108,12 +121,24 @@
     <string>1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+
+   <!-- NSAppTransportSecurity 설정 -->
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
       <key>NSAllowsLocalNetworking</key>
       <true/>
+      <key>NSExceptionDomains</key>
+      <dict>
+        <key>ceprj.gachon.ac.kr</key>
+        <dict>
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
+      </dict>
     </dict>
 
     <!-- 추가할 부분 시작 -->

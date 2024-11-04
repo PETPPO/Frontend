@@ -36,6 +36,16 @@ export const loginUser = (userData) => {
 };
 
 // 이메일 중복 확인 API
+// export const checkEmail = (email) => {
+//   return apiClient.post('/user/check-email', { userEmail: email });
+// };
+
+// 이메일 중복 확인 API
+// export const checkEmail = (userData) => {
+//   return apiClient.post('/user/check-email', userData);
+// };
+
+// 이메일 중복 확인 API
 export const checkEmail = (email) => {
   return apiClient.post('/user/check-email', { email });
 };

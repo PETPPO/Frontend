@@ -17,7 +17,7 @@
 //       setHeaderText("주의!");
 //       setModalMessage("사용자 정보가 일치하지 않습니다.");
 //       setModalVisible(true);
-//     // } else if (email !== 'Wjdgmldus28@naver.com' || password !== 'example02!!') {
+//     // } else if (email !== 'kimh0425@gachon.ac.kr' || password !== '12345678') {
 //     } else if (email !== '1' || password !== '1') {
 //       // 예시 이메일/비밀번호와 다를 경우 사용자 정보 불일치 모달 띄움 (임의의 데이터 사용)
 //       setHeaderText("주의!");
@@ -219,7 +219,7 @@ export default function LoginScreen({ navigation }) {
   const storeToken = async (token) => {
     try {
       await AsyncStorage.setItem('authToken', token);
-      console.log('Token stored successfully');
+      console.log('토큰이 성공적으로 저장되었습니다!');
     } catch (error) {
       console.error('Error storing token:', error);
     }
@@ -232,8 +232,8 @@ export default function LoginScreen({ navigation }) {
       setModalVisible(true);
     } else {
       const userData = {
-        email,
-        password,
+        userEmail: email,   
+        userPW: password,   
       };
 
       // 로그인 API 호출

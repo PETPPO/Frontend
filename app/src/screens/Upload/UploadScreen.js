@@ -255,7 +255,7 @@ export default function UploadScreen({ navigation }) {
         throw new Error('진단 실패');
       }
     } catch (error) {
-      console.error('Error in diagnosis:', error);
+      console.error('진단 오류:', error);
       setLoading(false);
       navigation.navigate('진단 실패');
     }
