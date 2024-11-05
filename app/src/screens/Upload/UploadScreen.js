@@ -155,7 +155,7 @@ import Line from '../../assets/images/icons/Line.svg';
 import CustomModal from '../../components/CustomModal';  
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { requestDiagnosis } from '../../api/DiagnosisApi'; // 진단 API 불러오기
-import { getToken } from '../../utils/storage'; // 토큰 불러오기 함수 가져오기
+import { getToken } from '../../utils/storage'; 
 
 export default function UploadScreen({ navigation }) {
   const [imageUri, setImageUri] = useState(null);
