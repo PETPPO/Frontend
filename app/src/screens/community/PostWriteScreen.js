@@ -7,8 +7,8 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { createPost } from '../../api/communityApi'; 
 import { getToken } from '../../utils/storage'; 
 
-const tags = ['# 미란/계양', '# 결정/중괴', '# 농포/여드름', '# 구진/플라크', '# 태선화/과다색소침착', '# 비듬/각질/상피성잔고리', '# 기타'];
-
+// const tags = ['# 미란/계양', '# 결정/중괴', '# 농포/여드름', '# 구진/플라크', '# 태선화/과다색소침착', '# 비듬/각질/상피성잔고리', '# 기타'];
+const tags = ['미란/계양', '결정/중괴', '농포/여드름', '구진/플라크', '태선화/과다색소침착', '비듬/각질/상피성잔고리', '기타'];
 export default function CreatePostScreen({ navigation }) {
   const [highlightedTag, setHighlightedTag] = useState(''); 
   const [selectedTag, setSelectedTag] = useState(''); 
@@ -60,11 +60,19 @@ export default function CreatePostScreen({ navigation }) {
       formData.append('title', title); 
       formData.append('content', content); 
       formData.append('diseaseTag', selectedTag); 
+      // formData.append('imagePath', {
+      //   uri: imageUri,
+      //   type: 'image/jpeg',
+      //   name: 'upload_image.jpg',
+      // });
+      // 이미지가 있는 경우에만 imagePath를 추가
+    if (imageUri) {
       formData.append('imagePath', {
         uri: imageUri,
         type: 'image/jpeg',
         name: 'upload_image.jpg',
       });
+    }
       formData.append('commentContent', ''); // 빈 문자열로 설정
   
       const response = await createPost(formData, token);
