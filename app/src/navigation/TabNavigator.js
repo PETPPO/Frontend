@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DiagnosisRecordScreen from '../screens/History/DiagnosisRecordScreen'; 
 import CommunityScreen from '../screens/community/CommunityScreen';
 import UserScreen from '../screens/user/UserScreen';
-import MainScreen from '../screens/MainScreen'; // 메인 스크린
+import MainScreen from '../screens/MainScreen'; 
 
 
 import UploadScreen from '../screens/Upload/UploadScreen';

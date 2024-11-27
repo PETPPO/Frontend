@@ -28,16 +28,12 @@ export default function MainScreen({ navigation }) {
       />
       <View style={styles.contentContainer}>
         <HeaderText mainText={`${dogName}의 피부 건강,\n지금 바로 확인해 보세요.`} />
-
-        {/* 배너 이미지와 고민 나누러 가기 버튼 */}
         <View style={styles.banner}>
           <Banner width={370} height={178} />  
           <TouchableOpacity style={styles.communityButton} onPress={() => navigation.navigate('커뮤니티')} >
             <Text style={styles.communityLink}>고민 나누러 가기 ↗</Text>
           </TouchableOpacity>
         </View>
-
-        {/* 기능 버튼들 */}
         <View style={styles.buttonsRow}>
           <TouchableOpacity onPress={() => navigation.navigate('이미지 업로드')} >
             <MainIcon width={164} height={171} />  

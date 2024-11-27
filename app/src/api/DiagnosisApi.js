@@ -37,14 +37,3 @@ export const fetchDiagnosisDetail = (diagnosis_id, token) => {
     },
   });
 };
-
-// export const fetchDiagnosisDetail = (diagnosis_id, token) => {
-//   console.log('diagnosis_id:', diagnosis_id);
-//   console.log('Request URL:', `/diagnosis/detail/${diagnosis_id}`);
-  
-//   return apiClient.get(`/diagnosis/detail/${diagnosis_id}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };

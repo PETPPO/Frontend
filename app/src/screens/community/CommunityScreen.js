@@ -28,35 +28,21 @@ export default function CommunityScreen({ navigation }) {
     const diseaseTag = selectedTag.length > 0 ? selectedTag[0]?.replace('#', '') : null;
     console.log("질환태그 전송:", diseaseTag || '모든 게시글');
 
-
-      // const diseaseTag = selectedTag[0]?.replace('#', ''); // `#` 기호 제거
-      // console.log("질환태그 전송:", diseaseTag);
-      
       const response = await fetchPosts(diseaseTag, token);
-
-      // response.data.posts가 배열인지 확인 후 배열이 아니면 빈 배열로 설정
     if (response.data.success && Array.isArray(response.data.posts)) {
       setPosts(response.data.posts);
     } else {
-      setPosts([]); // 배열이 아닐 경우 빈 배열로 설정
+      setPosts([]);
     }
   } catch (error) {
-    // console.error('게시글 목록 조회 오류:', error);
-    setPosts([]); // 오류 발생 시 빈 배열로 설정
+    setPosts([]); 
   }
 };
-
-  // useFocusEffect를 사용하여 커뮤니티 화면이 포커스될 때마다 loadPosts 함수 호출
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     loadPosts();
-  //   }, [])
-  // );
 
   useFocusEffect(
     useCallback(() => {
       loadPosts();
-    }, [selectedTag]) // selectedTag가 변경될 때만 로드하도록 설정
+    }, [selectedTag]) 
   );
 
   

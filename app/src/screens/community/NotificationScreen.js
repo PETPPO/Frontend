@@ -7,20 +7,14 @@ import { getToken } from '../../utils/storage';
 
 export default function NotificationScreen({ navigation }) {
   const [notifications, setNotifications] = useState([]);
-
-  // 알림 데이터를 서버에서 가져오는 함수
   const loadNotifications = async () => {
     try {
       const token = await getToken();
       const response = await fetchAlarms(token);
       if (response.data && Array.isArray(response.data.alarms)) {
         const alarms = response.data.alarms;
-        
-        // 로컬 저장소에서 읽음 상태를 불러오기
         const readStatus = await AsyncStorage.getItem('readAlarms');
         const readAlarms = readStatus ? JSON.parse(readStatus) : {};
-
-        // 알림 목록에 로컬 저장소의 읽음 상태 적용
         const updatedAlarms = alarms.map(alarm => ({
           ...alarm,
           isRead: readAlarms[alarm.alarmId] || alarm.isRead || false,
@@ -33,7 +27,6 @@ export default function NotificationScreen({ navigation }) {
     }
   };
 
-  // 알림 클릭 시 읽음 처리 및 게시글 페이지로 이동
   const handleNotificationPress = async (alarmId) => {
     try {
       const token = await getToken();
@@ -42,20 +35,17 @@ export default function NotificationScreen({ navigation }) {
       if (response.data.success) {
         const postId = response.data.postId;
 
-        // 읽음 상태 변경
         setNotifications((prev) =>
           prev.map((notif) =>
             notif.alarmId === alarmId ? { ...notif, isRead: true } : notif
           )
         );
 
-        // 로컬 저장소에 읽음 상태 저장
         const readStatus = await AsyncStorage.getItem('readAlarms');
         const readAlarms = readStatus ? JSON.parse(readStatus) : {};
         readAlarms[alarmId] = true;
         await AsyncStorage.setItem('readAlarms', JSON.stringify(readAlarms));
 
-        // 게시글 페이지로 이동
         navigation.navigate('게시글 상세보기', { postId });
       }
     } catch (error) {
@@ -64,7 +54,7 @@ export default function NotificationScreen({ navigation }) {
   };
 
   useEffect(() => {
-    loadNotifications(); // 화면 로드 시 알림 데이터 가져오기
+    loadNotifications(); 
   }, []);
 
   const formatDate = (dateString) => {
@@ -76,7 +66,6 @@ export default function NotificationScreen({ navigation }) {
     return `${month}.${day} ${hours}:${minutes}`;
   };
 
-  // 알림 아이템 렌더링
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={[styles.notificationItem, !item.isRead && styles.unreadNotification]}

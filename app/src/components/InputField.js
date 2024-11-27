@@ -4,7 +4,7 @@ import { TextInput, StyleSheet } from 'react-native';
 export default function InputField({ placeholder, secureTextEntry, onChangeText, style }) {
   return (
     <TextInput
-      style={[styles.input, style]}  // 외부 스타일과 기본 스타일 병합
+      style={[styles.input, style]}  
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
       onChangeText={onChangeText}

@@ -14,7 +14,6 @@ import { getToken } from '../../utils/storage';
 
 export default function PostDetailScreen({ route, navigation }) {
   const { postId } = route.params;
-  // const [postDetails, setPostDetails] = useState({ comments: [] });
   const [postDetails, setPostDetails] = useState({ commentCount: 0, comments: [] });
   const [newComment, setNewComment] = useState('');
   const [isReplying, setIsReplying] = useState(false);
@@ -41,18 +40,10 @@ export default function PostDetailScreen({ route, navigation }) {
         const response = await fetchPostDetails(postId, token);
         
         if (response.data.success) {
-
-          // setPostDetails({
-          //   ...response.data.postDetail,
-          //   comments: response.data.comments,
-          //   login_userId: response.data.login_userId,
-          // });
-          // setComments(response.data.comments); 
-
           setPostDetails({
             ...response.data.postDetail,
-            commentCount: response.data.postDetail.commentCount, // 댓글 수 저장
-            comments: response.data.comments, // 댓글 배열
+            commentCount: response.data.postDetail.commentCount, 
+            comments: response.data.comments, 
             login_userId: response.data.login_userId,
           });
           
@@ -60,9 +51,6 @@ export default function PostDetailScreen({ route, navigation }) {
           setPostDetails((prevDetails) => ({
             ...prevDetails,
           }));
-
-
-          
           setIsMyPost(response.data.login_userId === response.data.postDetail.postUserId);
         } else {
           console.error("게시글 상세 정보를 불러오지 못했습니다.");
@@ -177,7 +165,7 @@ export default function PostDetailScreen({ route, navigation }) {
         setComments(comments.filter((comment) => comment.id !== commentId));
         setPostDetails((prevDetails) => ({
           ...prevDetails,
-          commentCount: prevDetails.commentCount - 1, // 댓글 수 감소
+          commentCount: prevDetails.commentCount - 1, 
         }));
       }
     } catch (error) {
@@ -194,7 +182,7 @@ export default function PostDetailScreen({ route, navigation }) {
         setComments(comments.filter((comment) => comment.id !== replyId));
         setPostDetails((prevDetails) => ({
           ...prevDetails,
-          commentCount: prevDetails.commentCount - 1, // 댓글 수 감소
+          commentCount: prevDetails.commentCount - 1, 
         }));
       }
     } catch (error) {
@@ -250,15 +238,12 @@ export default function PostDetailScreen({ route, navigation }) {
           <Text style={styles.title}>{postDetails.title}</Text>
         </View>
         <Text style={styles.content}>{postDetails.content}</Text>
-        {/* {postDetails.imagePath && (
-          <Image source={{ uri: postDetails.imagePath }} style={styles.postImage} />
-        )} */}
         {postDetails.imagePath && <MemoizedImage uri={postDetails.imagePath} />}
       </View>
       <View style={styles.commentCountContainer}>
         <ChatCircle width={18} height={18} />
         <Text style={styles.commentCount}>
-          {postDetails.commentCount || 0} {/* 총 댓글 수 표시 */}
+          {postDetails.commentCount || 0} 
         </Text>
       </View>
     </View>
@@ -326,21 +311,13 @@ export default function PostDetailScreen({ route, navigation }) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={92}>
-      {/* <FlatList
+      <FlatList
         data={comments.filter((comment) => comment.parentId === null)}
-        keyExtractor={(item) => item.commentId.toString()}
+        keyExtractor={(item) => item.commentId.toString()} 
         renderItem={renderComment}
         ListHeaderComponent={renderHeader}
-        extraData={comments}
-      /> */}
-      <FlatList
-  data={comments.filter((comment) => comment.parentId === null)}
-  keyExtractor={(item) => item.commentId.toString()} // 고유 ID
-  renderItem={renderComment}
-  ListHeaderComponent={renderHeader}
-  extraData={comments} // 필요한 경우 상태를 전달
-/>
-
+        extraData={comments} 
+      />
       <View style={styles.commentInputContainer}>
         <TextInput
           style={styles.commentInput}
@@ -353,7 +330,6 @@ export default function PostDetailScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* 삭제 확인 모달 */}
       <CustomModal
         isVisible={modalType === "comment"}
         onClose={closeModal}
@@ -384,7 +360,6 @@ export default function PostDetailScreen({ route, navigation }) {
         onConfirm={handleDeletePost}
       />
 
-      
       {/* 삭제 완료 모달 */}
       <CustomModal
         isVisible={isFinalModalVisible && finalModalType === "comment"}
@@ -415,9 +390,6 @@ export default function PostDetailScreen({ route, navigation }) {
     </KeyboardAvoidingView>
   );
 }
-
-
-
 
 const styles = StyleSheet.create({
   replyContainerrr: {

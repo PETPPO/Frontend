@@ -6,7 +6,7 @@ import { login } from '../api/userApi';
 const useAuthStore = create((set) => ({
   user: null,
   isAuthenticated: false,
-  token: null, // 토큰 추가
+  token: null, 
 
   loginUser: async (email, password) => {
     try {

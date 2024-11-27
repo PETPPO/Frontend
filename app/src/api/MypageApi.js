@@ -1,12 +1,3 @@
-// 댓글 작성 및 알림 생성 API
-// export const createComment = (token, data) => {
-//   return apiClient.post('/mypage/comment', data, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
-
 import apiClient from './apiClient';
 
 // 사용자 이름 조회

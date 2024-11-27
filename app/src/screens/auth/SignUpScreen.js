@@ -17,12 +17,11 @@ export default function SignUpScreen({ navigation }) {
   const [headerText, setHeaderText] = useState('');
   const [emailStatusMessage, setEmailStatusMessage] = useState('');
   const [showSendButton, setShowSendButton] = useState(false);
-  const [isVerified, setIsVerified] = useState(false); // 인증 완료 여부
-  const [modalAction, setModalAction] = useState(() => () => setModalVisible(false)); // 모달 액션 초기 상태
-  const [isVerificationLinkSent, setIsVerificationLinkSent] = useState(false); // 인증 링크 발송 여부
-  const [verificationToken, setVerificationToken] = useState(''); // 이메일 인증 토큰 추가
+  const [isVerified, setIsVerified] = useState(false); 
+  const [modalAction, setModalAction] = useState(() => () => setModalVisible(false));
+  const [isVerificationLinkSent, setIsVerificationLinkSent] = useState(false); 
+  const [verificationToken, setVerificationToken] = useState(''); 
 
-  // 회원가입 버튼 핸들러
   const handleSignUp = () => {
     if (!email || !password || !confirmPassword || !username || !dogname) {
       setHeaderText("주의!");
@@ -69,7 +68,6 @@ export default function SignUpScreen({ navigation }) {
     }
   };
 
-  // 이메일 입력 핸들러
   const handleEmailChange = (text) => {
     setEmail(text);
     setShowSendButton(true);
@@ -77,25 +75,6 @@ export default function SignUpScreen({ navigation }) {
     setIsVerified(false);
     setIsVerificationLinkSent(false);
   };
-
-  // 이메일 인증 링크 발송 핸들러
-  // const handleSendVerificationLink = () => {
-  //   setEmailStatusMessage("발송 중...");
-  //   sendVerificationLink(email)
-  //     .then(response => {
-  //       console.log("sendVerificationLink 응답:", response.data); // 서버 응답 로그
-  //       setEmailStatusMessage("인증 링크가 이메일로 발송되었습니다.");
-  //       setVerificationToken(response.data.token); // 서버에서 반환된 토큰 저장
-  //       setIsVerificationLinkSent(true);
-  //       setTimeout(() => {
-  //         handleCheckEmailVerificationStatus();
-  //       }, 3000);
-  //     })
-  //     .catch(error => {
-  //       console.error("sendVerificationLink 오류:", error); // 오류 로그
-  //       setEmailStatusMessage("이미 사용중인 이메일입니다.");
-  //     });
-  // };
 
   // 이메일 인증 링크 발송 핸들러
 const handleSendVerificationLink = () => {
@@ -107,8 +86,8 @@ const handleSendVerificationLink = () => {
       setVerificationToken(response.data.token);
       setIsVerificationLinkSent(true);
       setTimeout(() => {
-        handleCheckEmailVerificationStatus(); // 일정 시간 후에 한 번만 호출
-      }, 10000); // 10초 후에 인증 상태 확인
+        handleCheckEmailVerificationStatus(); 
+      }, 10000); 
     })
     .catch(error => {
       console.error("sendVerificationLink 오류:", error);
@@ -122,9 +101,8 @@ const handleCheckEmailVerificationStatus = () => {
     .then(response => {
       console.log("Verification Status Response:", response.data);
       if (response.data.verified) {
-        setIsVerified(true); // 인증 완료 상태로 설정
+        setIsVerified(true); 
         setEmailStatusMessage("이메일 인증이 완료되었습니다.");
-        // showSendButton을 true로 유지하여 버튼이 계속 보이도록 함
       } else {
         setEmailStatusMessage("이메일 인증을 진행해주세요!");
       }
@@ -135,33 +113,20 @@ const handleCheckEmailVerificationStatus = () => {
     });
 };
 
-  // 인증 상태를 주기적으로 확인하기 위한 useEffect
-  // useEffect(() => {
-  //   if (email && isVerificationLinkSent && !isVerified) {
-  //     const intervalId = setInterval(() => {
-  //       handleCheckEmailVerificationStatus();
-  //     }, 5000); // 5초마다 인증 상태 확인
+  useEffect(() => {
+    if (email && isVerificationLinkSent && !isVerified) {
+      const intervalId = setInterval(() => {
+        handleCheckEmailVerificationStatus();
+      }, 15000);
 
-  //     return () => clearInterval(intervalId);
-  //   }
-  // }, [email, isVerificationLinkSent, isVerified]);
-
-// useEffect로 추가적인 확인을 피하도록 수정
-useEffect(() => {
-  if (email && isVerificationLinkSent && !isVerified) {
-    const intervalId = setInterval(() => {
-      handleCheckEmailVerificationStatus();
-    }, 15000); // 15초마다 인증 상태 확인
-
-    return () => clearInterval(intervalId);
-  }
-}, [email, isVerificationLinkSent, isVerified]);
+      return () => clearInterval(intervalId);
+    }
+  }, [email, isVerificationLinkSent, isVerified]);
 
   return (
     <View style={styles.container}>
       <Petppo_1 width={274} height={305} style={styles.image} />
       
-      {/* 이메일 상태 메시지 */}
       <Text style={styles.emailStatus}>{emailStatusMessage}</Text>
 
       <View style={styles.emailContainer}>
@@ -170,14 +135,14 @@ useEffect(() => {
           value={email}
           onChangeText={handleEmailChange}
           style={styles.emailInput}
-          autoCorrect={false}       // 자동 교정 비활성화
-          autoCapitalize="none"     // 첫 글자 대문자 자동 변환 비활성화
+          autoCorrect={false}       
+          autoCapitalize="none"     
         />
       {showSendButton && (
         <TouchableOpacity 
           style={[styles.checkButton, isVerified && { backgroundColor: '#fff' }]} 
           onPress={handleSendVerificationLink}
-          disabled={isVerified} // 인증 완료 시 버튼 비활성화
+          disabled={isVerified} 
         >
           <Text style={styles.checkButtonText}>
             {isVerified ? "인증 완료" : "발송하기"}
@@ -186,7 +151,6 @@ useEffect(() => {
       )}
       </View>
 
-      {/* 비밀번호, 이름, 반려견 이름 입력 */}
       <InputField
         placeholder="비밀번호"
         secureTextEntry={true}
@@ -214,13 +178,11 @@ useEffect(() => {
         />
       </View>
 
-      {/* 회원가입 버튼 */}
       <Button 
         title="회원가입" 
         onPress={handleSignUp} 
       />
 
-      {/* 모달 */}
       <CustomModal
         isVisible={isModalVisible}
         onClose={() => setModalVisible(false)}

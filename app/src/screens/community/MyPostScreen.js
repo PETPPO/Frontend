@@ -11,8 +11,8 @@ export default function MyPostsScreen({ navigation }) {
 
   const loadUserPosts = async () => {
     try {
-      const token = await getToken(); // 토큰을 가져옴
-      const response = await fetchUserPosts(token); // 토큰을 fetchUserPosts에 전달
+      const token = await getToken(); 
+      const response = await fetchUserPosts(token); 
       if (response.data.success && Array.isArray(response.data.posts)) {
         setPosts(response.data.posts);
       } else {
