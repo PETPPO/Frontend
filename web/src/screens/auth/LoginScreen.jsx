@@ -1,26 +1,3 @@
-// import React from 'react';
-// import logo from '../../assets/images/petppo_1.svg'; 
-// import './LoginScreen.css'; 
-
-// function LoginScreen() {
-
-  
-//   return (
-//     <div className="login-container">
-//       <img src={logo} alt="Petppo Logo" className="logo" />
-//       <h2 className="login-title">관리자 전용 로그인</h2>
-//       <form className="login-form">
-//         <input type="email" placeholder="이메일" required className="input-field" />
-//         <input type="password" placeholder="비밀번호" required className="input-field" />
-//         <button type="submit" className="login-button">로그인</button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LoginScreen;
-
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
