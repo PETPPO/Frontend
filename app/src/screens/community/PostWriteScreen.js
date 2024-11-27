@@ -8,7 +8,7 @@ import { createPost } from '../../api/communityApi';
 import { getToken } from '../../utils/storage'; 
 
 // const tags = ['# 미란/계양', '# 결정/중괴', '# 농포/여드름', '# 구진/플라크', '# 태선화/과다색소침착', '# 비듬/각질/상피성잔고리', '# 기타'];
-const tags = ['미란/계양', '결정/중괴', '농포/여드름', '구진/플라크', '태선화/과다색소침착', '비듬/각질/상피성잔고리', '기타'];
+const tags = ['미란/궤양', '결정/종괴', '농포/여드름', '구진/플라크', '태선화/과다색소침착', '비듬/각질/상피성잔고리', '기타'];
 export default function CreatePostScreen({ navigation }) {
   const [highlightedTag, setHighlightedTag] = useState(''); 
   const [selectedTag, setSelectedTag] = useState(''); 

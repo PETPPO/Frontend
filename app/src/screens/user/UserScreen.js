@@ -1,35 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import HeaderText from '../../components/HeaderText';
 import CustomModal from '../../components/CustomModal';
+import { removeToken } from '../../utils/storage'; 
+import useAuthStore from '../../stores/authStore';
+import { fetchUsername } from '../../api/MypageApi';
+import { getToken } from '../../utils/storage';
 
 export default function UserScreen({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isFinalModalVisible, setFinalModalVisible] = useState(false);
+  const { clearUser } = useAuthStore(); 
+  const [userName, setUsername] = useState("");
+  
+  useEffect(() => {
+    const getUsername = async () => {
+      try {
+        const token = await getToken(); 
+        const response = await fetchUsername(token);
+        setUsername(response.data.userName); 
+      } catch (error) {
+        console.error("사용자 이름 조회 오류:", error);
+      }
+    };
+    
+    getUsername();
+  }, []);
 
-  // 첫 번째 모달 닫기
   const handleModalClose = () => {
     setModalVisible(false);
   };
 
-  // 최종 확인 모달 닫기
   const handleFinalModalClose = () => {
     setFinalModalVisible(false);
     navigation.navigate('로그인');
   };
 
-  // 첫 번째 모달의 확인 버튼 눌렀을 때
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setModalVisible(false);
 
+    console.log("로그아웃 시작"); 
+    clearUser(); 
+    console.log("사용자 상태 초기화 완료"); 
+
+    await removeToken(); 
+    console.log("토큰 삭제 완료"); 
+
     setTimeout(() => {
-      setFinalModalVisible(true); // 최종 확인 모달 열기
-    }, 1000); 
+      setFinalModalVisible(true); 
+      console.log("로그아웃 완료, 확인 모달 표시"); 
+    }, 1000);
   };
+
 
   return (
     <View style={styles.container}>
-      <HeaderText mainText={"정희연님 안녕하세요.\n좋은 하루 보내세요!"} />
+      <HeaderText mainText={`${userName}님 안녕하세요.\n좋은 하루 보내세요!`} />
       <View style={styles.content}>
         <View style={styles.box}>
           <Text style={styles.text} onPress={() => navigation.navigate('내가 쓴 글')}>
@@ -51,7 +77,6 @@ export default function UserScreen({ navigation }) {
           </Text>
       </View>
 
-      {/* 로그아웃 모달 */}
       <CustomModal
         isVisible={isModalVisible}
         onClose={handleModalClose}
@@ -62,7 +87,6 @@ export default function UserScreen({ navigation }) {
         onConfirm={handleConfirm}
       />
 
-      {/* 로그아웃 확인 모달 */}
       <CustomModal
         isVisible={isFinalModalVisible}
         onClose={handleFinalModalClose}

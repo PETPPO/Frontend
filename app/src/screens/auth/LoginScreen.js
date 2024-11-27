@@ -272,6 +272,8 @@ export default function LoginScreen({ navigation }) {
         placeholder="이메일"
         value={email}
         onChangeText={setEmail} // 이메일 값 설정
+        autoCorrect={false}       // 자동 교정 비활성화
+        autoCapitalize="none"     // 첫 글자 대문자 자동 변환 비활성화
       />
       <InputField
         placeholder="비밀번호"

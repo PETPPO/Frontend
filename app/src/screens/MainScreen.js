@@ -1,11 +1,25 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import HeaderText from '../components/HeaderText';  
 import Banner from '../assets/images/main/banner.svg';  
 import MainIcon from '../assets/images/main/mainIcon.svg';
 import MainIcon2 from '../assets/images/main/mainIcon2.svg';
+import { fetchDogname } from '../api/MypageApi';
+import { getToken } from '../utils/storage';
 
 export default function MainScreen({ navigation }) {
+  const [dogName, setDogname] = useState("");
+
+  useEffect(() => {
+    const getDogname = async () => {
+        const token = await getToken(); 
+        const response = await fetchDogname(token);
+        setDogname(response.data.dogName); 
+    };
+    
+    getDogname();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image
@@ -13,7 +27,7 @@ export default function MainScreen({ navigation }) {
         style={styles.iconImage}
       />
       <View style={styles.contentContainer}>
-        <HeaderText mainText={"쿠키의 피부 건강,\n지금 바로 확인해 보세요."} />
+        <HeaderText mainText={`${dogName}의 피부 건강,\n지금 바로 확인해 보세요.`} />
 
         {/* 배너 이미지와 고민 나누러 가기 버튼 */}
         <View style={styles.banner}>

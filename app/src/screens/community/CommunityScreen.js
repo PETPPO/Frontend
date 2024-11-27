@@ -1,224 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-// import CommunityBox from '../../assets/images/icons/Community_Box.svg'; 
-// import ChatCircle from '../../assets/images/icons/Chat_Circle.svg'; 
-// import Dot3 from '../../assets/images/icons/Dot3.svg'; 
-// import WriteButton from '../../assets/images/icons/WriteButton.svg'; 
-// import { fetchPosts } from '../../api/communityApi'; 
-// import { getToken } from '../../utils/storage';
-
-// // const posts = [
-// //   {
-// //     id: '1',
-// //     title: '여드름 극복 후기!!',
-// //     author: '정희연',
-// //     date: '2024.05.07',
-// //     tags: ['# 기타'],
-// //     content: '저희집 강아지 피부에 빨개지며 여드름 진단...',
-// //     comments: 10,
-// //     image: 'https://blog.malcang.com/wp-content/uploads/2024/02/2-20.png',
-// //   },
-// //   {
-// //     id: '2',
-// //     title: '여드름 극복 후기!!',
-// //     author: '정희연',
-// //     date: '2024.05.07',
-// //     tags:  ['# 결정/종괴'],
-// //     content: '저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다.',
-// //     comments: 10,
-// //     image: '', // 이미지가 없는 경우
-// //   },
-// //   {
-// //     id: '3',
-// //     title: '여드름 극복 후기!!',
-// //     author: '정희연',
-// //     date: '2024.05.07',
-// //     tags:  ['# 결정/종괴'],
-// //     content: '저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다.',
-// //     comments: 10,
-// //     image: '', // 이미지가 없는 경우
-// //   },
-// //   {
-// //     id: '4',
-// //     title: '여드름 극복 후기!!',
-// //     author: '정희연',
-// //     date: '2024.05.07',
-// //     tags:  ['# 결정/종괴'],
-// //     content: '저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다. 저희집 강아지 피부에 빨개지며 여드름 진단 받았습니다.',
-// //     comments: 10,
-// //     image: '', // 이미지가 없는 경우
-// //   },
-// // ];
-
-// const hashtags = [
-//   '# 미란/계양', '# 결정/종괴', '# 농포/여드름', '# 구진/플라크', 
-//   '# 태선화/과다색소침착', '# 비듬/각질/상피성잔고리', '# 기타'
-// ];
-
-
-// export default function CommunityScreen({ navigation }) {
-//   // const [selectedTags, setSelectedTags] = useState([]);
-//   const [posts, setPosts] = useState([]);
-//   const [selectedTag, setSelectedTag] = useState(['# 미란/계양']); // 초기 선택된 해시태그 설정
-//   const [showWriteButton, setShowWriteButton] = useState(false);
-
-//   const loadPosts = async () => {
-//     try {
-//       const token = await getToken(); 
-//       if (!token) {
-//         throw new Error('No authentication token found');
-//       }
-
-//       const formData = new FormData(); 
-//       formData.append('diseaseTag', diseaseTag); 
-
-//       const diseaseTag = selectedTag[0]; // selectedTag의 첫 번째 요소를 diseaseTag로 사용
-     
-//       // const diseaseTag = selectedTag[0]?.replace('#', '');
-//       // console.log("Sending diseaseTag without #: ", diseaseTag);
-     
-//       const response = await fetchPosts(selectedTag, token);
-//     } catch (error) {
-//       console.error("Token being sent:", token);
-//     }
-//       if (response.data.success) {
-//         setPosts(response.data.posts);
-//       }
-//     // } catch (error) {
-//     //   console.error("Token being sent:", token);
-//     //   console.error('게시글 목록 조회 오류:', error);
-//     // }
-//   };
-
-//   useEffect(() => {
-//     loadPosts();
-//   }, [selectedTag]);
-
-//   const filteredPosts = selectedTag.length > 0 
-//     ? posts.filter(post => post.tags.some(tag => selectedTag.includes(tag)))
-//     : posts; // 선택된 태그가 없으면 모든 게시물 표시
-
-//   const handleHashtagClick = (hashtag) => {
-//     if (selectedTag.includes(hashtag)) {
-//       setSelectedTag([]); // 선택된 해시태그 클릭 시 전체 해제
-//     } else {
-//       setSelectedTag([hashtag]); // 새로운 해시태그 선택
-//     }
-//   };
-
-//   const handleDot3Click = () => {
-//     setShowWriteButton(!showWriteButton);
-//   };
-
-//   useEffect(() => {
-//     console.log('showWriteButton:', showWriteButton);
-//   }, [showWriteButton]);
-
-//   return (
-//     <ScrollView style={styles.container}>
-//       <TouchableOpacity onPress={handleDot3Click} style={styles.dot3}>
-//         <Dot3 />
-//       </TouchableOpacity>
-
-//       <View style={styles.hashtagContainer}>
-//         <View style={styles.hashtagRow}>
-//           {hashtags.slice(0, 4).map((hashtag) => (
-//             <TouchableOpacity
-//               key={hashtag}
-//               style={[
-//                 styles.hashtag,
-//                 selectedTag.includes(hashtag) && styles.selectedHashtag,  
-//               ]}
-//               onPress={() => handleHashtagClick(hashtag)}  
-//             >
-//               <Text style={[
-//                 styles.hashtagText,
-//                 selectedTag.includes(hashtag) && styles.selectedHashtagText,  
-//               ]}>
-//                 {hashtag}
-//               </Text>
-//             </TouchableOpacity>
-//           ))}
-//         </View>
-//         <View style={styles.hashtagRow}>
-//           {hashtags.slice(4).map((hashtag) => (
-//             <TouchableOpacity
-//               key={hashtag}
-//               style={[
-//                 styles.hashtag,
-//                 selectedTag.includes(hashtag) && styles.selectedHashtag,  
-//               ]}
-//               onPress={() => handleHashtagClick(hashtag)}  
-//             >
-//               <Text style={[
-//                 styles.hashtagText,
-//                 selectedTag.includes(hashtag) && styles.selectedHashtagText,  
-//               ]}>
-//                 {hashtag}
-//               </Text>
-//             </TouchableOpacity>
-//           ))}
-//         </View>
-//       </View>
-
-//       <View style={styles.postList}>
-//         {/* {posts.map((item) => ( */}
-//         {filteredPosts.map((item) => (
-//           <View key={item.id} style={styles.cardContainer}>
-//             <View style={styles.communityBoxWrapper}>
-//               {/* <CommunityBox width={393} style={styles.communityBox}/> */}
-//               <CommunityBox width={415} style={styles.communityBox}/>
-//             </View>
-//             <View style={styles.cardContent}>
-//               <View style={styles.header}>
-//                 <TouchableOpacity onPress={() => navigation.navigate('게시글 상세보기', { postId: item.id })}>
-//                   <Text style={styles.title}>{item.title}</Text>
-//                 </TouchableOpacity>
-//                 <Text style={styles.author}>  |  {item.author}</Text>
-//               </View>
-//               <View style={styles.tagContainer}>
-//                 {item.tags.map((tag, index) => (
-//                   <View key={index} style={styles.tagWrapper}>  
-//                     <Text style={styles.tagText}>{tag}</Text>  
-//                   </View>
-//                 ))}
-//               </View>
-
-//               <View style={[styles.contentWrapper, item.image ? styles.contentWithImage : styles.contentWithoutImage]}>
-//                 <View style={[
-//                   styles.textBox, 
-//                   { width: item.image ? 205 : 305 }
-//                 ]}>
-//                   <Text style={styles.content} numberOfLines={2} ellipsizeMode="tail">
-//                     {item.content}
-//                   </Text>
-//                 </View>
-
-//                 {item.image && (
-//                   <Image source={{ uri: item.image }} style={styles.postImage} />
-//                 )}
-//               </View>
-
-//               <View style={styles.footer}>
-//                 <View style={styles.contentBox}>
-//                   <ChatCircle />
-//                   <Text style={styles.comments}> {item.comments}</Text>
-//                 </View>
-//                 <Text style={styles.date}>{item.date}</Text>
-//               </View>
-//             </View>
-//           </View>
-//         ))}
-//       </View>
-//       {showWriteButton && (
-//         <TouchableOpacity style={styles.floatingButton} onPress={() => navigation.navigate('게시글 작성하기')} >
-//           <WriteButton />
-//         </TouchableOpacity>
-//       )}
-//     </ScrollView>
-//   );
-// }
-
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
@@ -231,14 +10,14 @@ import { getToken } from '../../utils/storage';
 import { useFocusEffect } from '@react-navigation/native';
 
 const hashtags = [
-  '# 미란/계양', '# 결정/종괴', '# 농포/여드름', '# 구진/플라크', 
+  '# 미란/궤양', '# 결정/종괴', '# 농포/여드름', '# 구진/플라크', 
   '# 태선화/과다색소침착', '# 비듬/각질/상피성잔고리', '# 기타'
 ];
 
 export default function CommunityScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
-  const [selectedTag, setSelectedTag] = useState(['# 미란/계양']);
-  const [showWriteButton, setShowWriteButton] = useState(false);
+  const [selectedTag, setSelectedTag] = useState(['# 미란/궤양']);
+  const [showWriteButton, setShowWriteButton] = useState(false);  
 
   const loadPosts = async () => {
     try {
@@ -268,12 +47,19 @@ export default function CommunityScreen({ navigation }) {
 };
 
   // useFocusEffect를 사용하여 커뮤니티 화면이 포커스될 때마다 loadPosts 함수 호출
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     loadPosts();
+  //   }, [])
+  // );
+
   useFocusEffect(
     useCallback(() => {
       loadPosts();
-    }, [])
+    }, [selectedTag]) // selectedTag가 변경될 때만 로드하도록 설정
   );
 
+  
   useEffect(() => {
     loadPosts();
   }, [selectedTag]);
@@ -342,7 +128,9 @@ export default function CommunityScreen({ navigation }) {
             <View style={styles.cardContent}>
               <View style={styles.header}>
               <TouchableOpacity onPress={() => navigation.navigate('게시글 상세보기', { postId: item.postId })}>
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={[styles.title, { maxWidth: 250 }]} numberOfLines={1} ellipsizeMode="tail">
+                  {item.title}
+                </Text>
               </TouchableOpacity>
               <Text style={styles.author}>  |  {item.userName}</Text>
               </View>
@@ -366,8 +154,8 @@ export default function CommunityScreen({ navigation }) {
               </View>
               <View style={styles.footer}>
                 <View style={styles.contentBox}>
-                  <ChatCircle />
-                  <Text style={styles.comments}> {item.comments}</Text>
+                  <ChatCircle /> 
+                  <Text style={styles.comments}> {item.commentCount || 0}</Text>
                 </View>
                 <Text style={styles.date}>{new Date(item.postDate).toLocaleDateString()}</Text>
               </View>

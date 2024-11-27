@@ -273,7 +273,7 @@ function UserManageScreen() {
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://ceprj.gachon.ac.kr:60017/admin/user/${userId}`);
+      await axios.delete(`http://ceprj.gachon.ac.kr:60017/admin/users/${userId}`);
       setUsers((prevUsers) => prevUsers.filter((user) => user.userId !== userId));
       setModalVisible(false);
       setConfirmModalMessage('해당 사용자가 삭제되었어요!');

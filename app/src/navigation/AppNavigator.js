@@ -96,6 +96,10 @@
 
 // export default AppNavigator;
 
+
+
+
+//진짜 코드!!!
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -143,31 +147,31 @@ function AppNavigator() {
   return (
     <Stack.Navigator initialRouteName={LOGIN_SCREEN}>
       {/* 사용자 인증 */}
-      <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen} />
-      <Stack.Screen name={USERAGREEMENT_SCREEN} component={UserAgreementScreen} />
-      <Stack.Screen name={TERMSDETAILS_SCREEN} component={TermsDetailsScreen} />
-      <Stack.Screen name={PRIVACYDETAILS_SCREEN} component={PrivacyDetailsScreen} />
-      <Stack.Screen name={SIGNUP_SCREEN} component={SignUpScreen} />
+      <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={USERAGREEMENT_SCREEN} component={UserAgreementScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={TERMSDETAILS_SCREEN} component={TermsDetailsScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={PRIVACYDETAILS_SCREEN} component={PrivacyDetailsScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={SIGNUP_SCREEN} component={SignUpScreen}  options={{ headerBackTitleVisible: false }}/>
 
       {/* 진단 기록 */}
-      <Stack.Screen name={DIAGNOSISRECORD_SCREEN} component={DiagnosisRecordScreen} />
-      <Stack.Screen name={HISTORYDETAIL_SCREEN} component={HistoryDetailScreen} />
+      <Stack.Screen name={DIAGNOSISRECORD_SCREEN} component={DiagnosisRecordScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={HISTORYDETAIL_SCREEN} component={HistoryDetailScreen}  options={{ headerBackTitleVisible: false }}/>
 
       {/* 커뮤니티 */}
-      <Stack.Screen name={COMMUNITY_SCREEN} component={CommunityScreen} />
-      <Stack.Screen name={POSTWRITE_SCREEN} component={PostWriteScreen} />
-      <Stack.Screen name={POSTEDETAIL_SCREEN} component={PostDetailScreen} />
-      <Stack.Screen name={USER_SCREEN} component={UserScreen} />
-      <Stack.Screen name={MYPOST_SCREEN} component={MyPostScreen} />
+      <Stack.Screen name={COMMUNITY_SCREEN} component={CommunityScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={POSTWRITE_SCREEN} component={PostWriteScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={POSTEDETAIL_SCREEN} component={PostDetailScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={USER_SCREEN} component={UserScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={MYPOST_SCREEN} component={MyPostScreen}  options={{ headerBackTitleVisible: false }}/>
 
       {/* 이미지 진단 */}
-      <Stack.Screen name={UPLOAD_SCREEN} component={UploadScreen} />
-      <Stack.Screen name={RESULT_SCREEN} component={ResultScreen} />
-      <Stack.Screen name={FAILRESULT_SCREEN} component={FailResultScreen} />
+      <Stack.Screen name={UPLOAD_SCREEN} component={UploadScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={RESULT_SCREEN} component={ResultScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={FAILRESULT_SCREEN} component={FailResultScreen}  options={{ headerBackTitleVisible: false }}/>
 
       {/* 마이페이지 */}
-      <Stack.Screen name={WITHDRAWAL_SCREEN} component={WithdrawalScreen} />
-      <Stack.Screen name={NOTIFICATION_SCREEN} component={NotificationScreen} />
+      <Stack.Screen name={WITHDRAWAL_SCREEN} component={WithdrawalScreen}  options={{ headerBackTitleVisible: false }}/>
+      <Stack.Screen name={NOTIFICATION_SCREEN} component={NotificationScreen}  options={{ headerBackTitleVisible: false }}/>
 
       {/* 로그인 후 TabNavigator로 이동 */}
       <Stack.Screen name="홈" component={TabNavigator} options={{ headerShown: false }} />

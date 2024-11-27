@@ -146,7 +146,7 @@
 //   }
 // });
 
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, StyleSheet, Alert, TouchableOpacity, Image, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'; 
 import HeaderText from '../../components/HeaderText';
@@ -154,8 +154,9 @@ import Camera from '../../assets/images/icons/camera.svg';
 import Line from '../../assets/images/icons/Line.svg';
 import CustomModal from '../../components/CustomModal';  
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { requestDiagnosis } from '../../api/DiagnosisApi'; // 진단 API 불러오기
+import { requestDiagnosis } from '../../api/DiagnosisApi'; 
 import { getToken } from '../../utils/storage'; 
+import { fetchDogname } from '../../api/MypageApi';
 
 export default function UploadScreen({ navigation }) {
   const [imageUri, setImageUri] = useState(null);
@@ -163,6 +164,18 @@ export default function UploadScreen({ navigation }) {
   const [textInput, setTextInput] = useState("");  // 텍스트 입력 상태 추가
   // const [diagnosisCompleted, setDiagnosisCompleted] = useState(false);  // 진단 완료 모달 상태 추가
 
+  const [dogName, setDogname] = useState("");
+
+  useEffect(() => {
+    const getDogname = async () => {
+        const token = await getToken(); 
+        const response = await fetchDogname(token);
+        setDogname(response.data.dogName); 
+    };
+    
+    getDogname();
+  }, []);
+  
   // 이미지 업로드 상태에 따라 버튼 활성화
   const isButtonEnabled = imageUri !== null;
 
@@ -267,8 +280,8 @@ export default function UploadScreen({ navigation }) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={100} // iOS에서 키보드가 가리는 문제 방지
     >
-      <ScrollView contentContainerStyle={styles.container}>
-        <HeaderText mainText={"쿠키의 피부 건강,\n지금 바로 확인해 보세요."} />
+      <ScrollView contentContainerStyle={styles.container}> 
+        <HeaderText mainText={`${dogName}의 피부 건강을,\n간편하게 진단해 드려요.`} />
         <Line style={styles.line} />
         <Text style={styles.subTitle}>피부 환부가 선명하게 보이는 사진이 좋아요!</Text>
         <TouchableOpacity style={styles.imageBox} onPress={handleImagePicker}>

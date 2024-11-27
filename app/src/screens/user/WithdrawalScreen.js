@@ -1,30 +1,45 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import CustomModal from '../../components/CustomModal';
+import { withdrawUser } from '../../api/MypageApi';
+import { getToken, removeToken } from '../../utils/storage'; 
+import useAuthStore from '../../stores/authStore';
 
 export default function WithdrawalScreen({ navigation }) {
+  const { user, clearUser } = useAuthStore();
   const [isChecked, setChecked] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isFinalModalVisible, setFinalModalVisible] = useState(false);
 
-  // 탈퇴 확인 모달 닫기
   const handleModalClose = () => {
     setModalVisible(false);
   };
 
-  // 최종 모달 닫기 및 로그인 페이지로 이동
-  const handleFinalModalClose = () => {
+  const handleFinalModalClose = async () => {
     setFinalModalVisible(false);
+    await removeToken(); 
+    clearUser(); 
     navigation.navigate('로그인');
   };
 
-  // 첫 번째 탈퇴 확인 모달의 확인 버튼을 눌렀을 때
-  const handleConfirm = () => {
-    setModalVisible(false);
-    setFinalModalVisible(true); // 최종 확인 모달 열기
+  const handleConfirm = async () => {
+    try {
+      const token = await getToken();
+      const userId = user?.id;
+      const response = await withdrawUser(userId, token);
+
+      if (response.data.success) {
+        setModalVisible(false);
+        setFinalModalVisible(true);
+      } else {
+        Alert.alert("오류", response.data.message || "회원 탈퇴 중 문제가 발생했습니다. 다시 시도해 주세요.");
+      }
+    } catch (error) {
+      console.error("회원 탈퇴 오류:", error);
+      Alert.alert("오류", "회원 탈퇴 중 문제가 발생했습니다. 다시 시도해 주세요.");
+    }
   };
 
-  // 탈퇴 버튼 클릭 시 처리
   const handleWithdrawal = () => {
     if (isChecked) {
       setModalVisible(true);
@@ -35,15 +50,9 @@ export default function WithdrawalScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/images/petppo_2.jpg')}
-        style={styles.iconImage}
-      />
+      <Image source={require('../../assets/images/petppo_2.jpg')} style={styles.iconImage} />
       <View style={styles.contentContainer}>
-        <Text style={styles.message}>
-          회원 탈퇴 시 더 이상 펫뽀 서비스 사용이 불가능하며 탈퇴 처리됩니다.
-        </Text>
-
+        <Text style={styles.message}>회원 탈퇴 시 더 이상 펫뽀 서비스 사용이 불가능하며 탈퇴 처리됩니다.</Text>
         <View style={styles.checkboxContainer}>
           <TouchableOpacity
             style={[styles.checkbox, isChecked && styles.checkboxChecked]}
@@ -62,7 +71,6 @@ export default function WithdrawalScreen({ navigation }) {
           <Text style={styles.withdrawalButtonText}>탈퇴</Text>
         </TouchableOpacity>
 
-        {/* 첫 번째 탈퇴 확인 모달 */}
         <CustomModal
           isVisible={isModalVisible}
           onClose={handleModalClose}
@@ -73,7 +81,6 @@ export default function WithdrawalScreen({ navigation }) {
           onConfirm={handleConfirm}
         />
 
-        {/* 최종 탈퇴 완료 모달 */}
         <CustomModal
           isVisible={isFinalModalVisible}
           headerText="회원탈퇴 완료"
@@ -86,6 +93,7 @@ export default function WithdrawalScreen({ navigation }) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -140,9 +148,11 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 12,
     alignItems: 'center',
+    marginTop: 50,
   },
   disabledButton: {
     backgroundColor: '#CCC',
+    marginTop: 50,
   },
   withdrawalButtonText: {
     color: '#fff',

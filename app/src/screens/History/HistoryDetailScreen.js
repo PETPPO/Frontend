@@ -322,8 +322,21 @@ import HeaderText from '../../components/HeaderText';
 import Line from '../../assets/images/icons/Line.svg';
 import { fetchDiagnosisDetail } from '../../api/DiagnosisApi';
 import { getToken } from '../../utils/storage';
+import { fetchDogname } from '../../api/MypageApi';
 
 export default function HistoryDetailScreen({ route }) {
+  const [dogName, setDogname] = useState("");
+
+  useEffect(() => {
+    const getDogname = async () => {
+        const token = await getToken(); 
+        const response = await fetchDogname(token);
+        setDogname(response.data.dogName); 
+    };
+    
+    getDogname();
+  }, []);
+
   const { diagnosis_id } = route.params || {}; // diagnosis_id를 route에서 전달받음
   const [diagnosisData, setDiagnosisData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -383,7 +396,8 @@ export default function HistoryDetailScreen({ route }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <HeaderText mainText={"과거 쿠기의 피부\n진단 결과를 보여드요."} />
+        {/* <HeaderText mainText={"과거 쿠기의 피부\n진단 결과를 보여드요."} /> */}
+        <HeaderText mainText={`과거 ${dogName}의 피부\n진단 결과를 보여드려요.`} />
         <Line style={styles.line} />
 
         <View style={styles.sectionContain}>

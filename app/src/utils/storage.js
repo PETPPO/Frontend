@@ -5,7 +5,7 @@ export const saveToken = async (token) => {
   try {
     await AsyncStorage.setItem('authToken', token);
   } catch (error) {
-    console.error('Error saving token:', error);
+    console.error('토큰 저장 에러:', error);
   }
 };
 
@@ -14,7 +14,7 @@ export const getToken = async () => {
   try {
     return await AsyncStorage.getItem('authToken');
   } catch (error) {
-    console.error('Error getting token:', error);
+    console.error('토큰 가져오기 에러:', error);
   }
 };
 
@@ -23,6 +23,6 @@ export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem('authToken');
   } catch (error) {
-    console.error('Error removing token:', error);
+    console.error('토큰 제거 에러:', error);
   }
 };

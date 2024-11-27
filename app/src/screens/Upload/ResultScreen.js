@@ -366,7 +366,7 @@
 
 //진짜코드ㅎㅎ
 import { StyleSheet, ScrollView, View, Text, Image, Alert } from 'react-native'; 
-import React, { useState } from 'react';  
+import React, { useState, useEffect } from 'react';  
 import HeaderText from '../../components/HeaderText';
 import Line from '../../assets/images/icons/Line.svg';
 import MainButton from '../../components/MainButton';  
@@ -374,8 +374,21 @@ import CustomModal from '../../components/CustomModal';
 import { saveDiagnosisResult } from '../../api/DiagnosisApi'; // 진단 결과 저장 API 불러오기
 import { getToken } from '../../utils/storage'; // 토큰 가져오기 함수
 //import useDiagnosisStore from '../../stores/useDiagnosisStore'; //주스탠드 파일 불러오기
+import { fetchDogname } from '../../api/MypageApi';
 
 export default function ResultScreen({ route, navigation }) {
+  const [dogName, setDogname] = useState("");
+
+  useEffect(() => {
+    const getDogname = async () => {
+        const token = await getToken(); 
+        const response = await fetchDogname(token);
+        setDogname(response.data.dogName); 
+    };
+    
+    getDogname();
+  }, []);
+
   const { result } = route.params || {}; 
   const { diagnosisResult, description, health, imagePath, record } = result || {};
 
@@ -438,7 +451,8 @@ export default function ResultScreen({ route, navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}> 
-        <HeaderText mainText={"쿠키의 피부 질환\n결과가 나왔어요."} />
+        {/* <HeaderText mainText={"쿠키의 피부 질환\n결과가 나왔어요."} /> */}
+        <HeaderText mainText={`${dogName}의 피부 질환\n결과가 나왔어요.`} />
         <Line style={styles.line} />
 
         <View style={styles.sectionContain}>

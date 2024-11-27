@@ -139,7 +139,7 @@ function PostManageScreen() {
             name: post.userName,
             postDate: new Date(post.postDate).toLocaleDateString(),
             title: post.title,
-            commentCount: post.commentContent,
+            commentCount: post.commentCount,
           }));
           setPosts(fetchedPosts);
         } else {
@@ -206,7 +206,7 @@ function PostManageScreen() {
     setConfirmModalVisible(false);
   };
 
-  const columns = ['게시글 ID', '작성자명', '작성일자', '제목', '댓글수', '계정 삭제'];
+  const columns = ['게시글 ID', '작성자명', '작성일자', '제목', '댓글수', '게시글 삭제'];
 
   return (
     <div className="post-manage-container">
