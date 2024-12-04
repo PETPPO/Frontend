@@ -101,7 +101,7 @@ const handleCheckEmailVerificationStatus = () => {
     .then(response => {
       console.log("Verification Status Response:", response.data);
       if (response.data.verified) {
-        setIsVerified(true); 
+        setIsVerified(true);
         setEmailStatusMessage("이메일 인증이 완료되었습니다.");
       } else {
         setEmailStatusMessage("이메일 인증을 진행해주세요!");
@@ -109,7 +109,7 @@ const handleCheckEmailVerificationStatus = () => {
     })
     .catch(error => {
       console.error("Verification Status Error:", error);
-      setEmailStatusMessage("서버에 연결할 수 없습니다. 다시 시도해주세요.");
+      setEmailStatusMessage("이메일 인증에 실패하였습니다. 다시 시도해주세요.");
     });
 };
 
