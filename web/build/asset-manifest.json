@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.5c73f3d7.css",
-    "main.js": "/static/js/main.504aff66.js",
+    "main.css": "/static/css/main.0c174118.css",
+    "main.js": "/static/js/main.4c2ac2ee.js",
     "static/js/453.1cee9594.chunk.js": "/static/js/453.1cee9594.chunk.js",
     "static/media/Petppo_logo_web.svg": "/static/media/Petppo_logo_web.c05973810346cd732827d83b9e50a1a9.svg",
     "static/media/petppo_1.svg": "/static/media/petppo_1.cdcace7f0993708de293730f7ca66af1.svg",
     "index.html": "/index.html",
     "static/media/logoutIcon.svg": "/static/media/logoutIcon.f113ad44e1b7c36d15cac78c048db9ba.svg",
-    "main.5c73f3d7.css.map": "/static/css/main.5c73f3d7.css.map",
-    "main.504aff66.js.map": "/static/js/main.504aff66.js.map",
+    "main.0c174118.css.map": "/static/css/main.0c174118.css.map",
+    "main.4c2ac2ee.js.map": "/static/js/main.4c2ac2ee.js.map",
     "453.1cee9594.chunk.js.map": "/static/js/453.1cee9594.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c73f3d7.css",
-    "static/js/main.504aff66.js"
+    "static/css/main.0c174118.css",
+    "static/js/main.4c2ac2ee.js"
   ]
 }
